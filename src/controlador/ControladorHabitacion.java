@@ -11,8 +11,10 @@ import modelo.Habitacion;
  *
  * @author bossstore
  */
+
+
 public class ControladorHabitacion {
-    private ArrayList <Habitacion> habitaciones;
+    private ArrayList<Habitacion> habitaciones;
 
     public ControladorHabitacion() {
         habitaciones = new ArrayList<>();
@@ -21,50 +23,43 @@ public class ControladorHabitacion {
     public ArrayList<Habitacion> getHabitaciones() {
         return habitaciones;
     }
-    
-    public boolean agregarHabitacion(Habitacion habitacion){
-       //for (int i = 0; i < habitaciones.size(); i++) {
-            //if(habitaciones.get(i).getCapacidad() > 0){
-                habitaciones.add(habitacion);
-                return true;
-            //}
-        //}
-        //return false;
+
+    public boolean agregarHabitacion(Habitacion habitacion) {
+        if (buscarHabitacion(habitacion.getNumero()) != null) 
+            return false;
+        if (habitacion.getCapacidad() <= 0 || habitacion.getEstado() == null) 
+            return false;
+        habitaciones.add(habitacion);
+        return true;
     }
-    
-    public Habitacion buscarHabitacion(int numero){
-        for (int i = 0; i < habitaciones.size(); i++) {
-            if(habitaciones.get(i) != null && numero == habitaciones.get(i).getNumero()){
-                return habitaciones.get(i);
-            }
+
+    public Habitacion buscarHabitacion(int numero) {
+        for (Habitacion h : habitaciones) {
+            if (h.getNumero() == numero) 
+                return h;
         }
         return null;
     }
-    
-    public boolean editarHabitacion(Habitacion habitacion){
-        Habitacion aux = buscarHabitacion(habitacion.getNumero());
-        for (int i = 0; i < habitaciones.size(); i++) {
-            if(aux != null){
-                aux.setTipo(habitacion.getTipo());
-                aux.setCapacidad(habitacion.getCapacidad());
-                aux.setEstado(habitacion.getEstado());
-                return true;
-            }
+
+    public boolean editarHabitacion(Habitacion habitacion) {
+        Habitacion existente = buscarHabitacion(habitacion.getNumero());
+        if (existente != null) {
+            if (habitacion.getCapacidad() <= 0 || habitacion.getEstado() == null) 
+                return false;
+            existente.setTipo(habitacion.getTipo());
+            existente.setCapacidad(habitacion.getCapacidad());
+            existente.setEstado(habitacion.getEstado());
+            return true;
         }
         return false;
     }
-    
-    public boolean elimnarHabitacion(int numero){
-        for (int i = 0; i < habitaciones.size(); i++) {
-            if(habitaciones.get(i) != null ){
-                habitaciones.remove(i);
-                return true;
-            }
+
+    public boolean eliminarHabitacion(int numero) {
+        Habitacion h = buscarHabitacion(numero);
+        if (h != null) {
+            habitaciones.remove(h);
+            return true;
         }
         return false;
     }
-    
-    
-    
-    
 }

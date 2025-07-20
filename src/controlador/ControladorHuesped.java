@@ -23,29 +23,29 @@ public class ControladorHuesped {
         return huespedes;
     }
     
-    public boolean agregarHuesped(Huesped huesped){
+    public boolean agregarHuesped(Huesped huesped) {
+    // Validar que los campos no estén vacíos
+        if (huesped.getNombre().trim().isEmpty() || huesped.getDocumento().trim().isEmpty() || huesped.getCorreo().trim().isEmpty() || huesped.getTelefono().trim().isEmpty()) {
+            return false;
+        }
+
+    // Validar que el correo contenga '@'
+        if (!huesped.getCorreo().contains("@")) {
+            return false;
+        }
+
+    // Si pasa las validaciones, se agrega a la lista
         huespedes.add(huesped);
         return true;
-    }
+    } 
     
-    public Huesped buscarHuesped(String documento){
-        for (int i = 0; i < huespedes.size(); i++) {
-            if(huespedes.get(i) != null){
-                return huespedes.get(i);
+    public Huesped buscarHuesped(String documento) {
+        for (Huesped h : huespedes) {
+            if (h != null && h.getDocumento().equalsIgnoreCase(documento)) {
+                return h;
             }
         }
-        return null;
+        return null; // No encontrado
     }
-    
-    public boolean eliminarHuesped(String documento){
-        for (int i = 0; i < huespedes.size(); i++) {
-            if(huespedes.get(i) != null){
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    
     
 }

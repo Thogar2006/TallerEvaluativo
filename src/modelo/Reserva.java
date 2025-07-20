@@ -14,15 +14,15 @@ public class Reserva {
     private int idReserva;
     private LocalDate fechaEntrada;
     private LocalDate fechaSalida;
-    private Habitacion habitacio;
     private Huesped huesped;
+    private Habitacion habitacion;
 
-    public Reserva(int idReserva, LocalDate fechaEntrada, LocalDate fechaSalida, Habitacion habitacio, Huesped huesped) {
+    public Reserva(int idReserva, LocalDate fechaEntrada, LocalDate fechaSalida, Huesped huesped, Habitacion habitacion) {
         this.idReserva = idReserva;
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
-        this.habitacio = habitacio;
         this.huesped = huesped;
+        this.habitacion = habitacion;
     }
 
     public int getIdReserva() {
@@ -49,14 +49,6 @@ public class Reserva {
         this.fechaSalida = fechaSalida;
     }
 
-    public Habitacion getHabitacio() {
-        return habitacio;
-    }
-
-    public void setHabitacio(Habitacion habitacio) {
-        this.habitacio = habitacio;
-    }
-
     public Huesped getHuesped() {
         return huesped;
     }
@@ -64,7 +56,14 @@ public class Reserva {
     public void setHuesped(Huesped huesped) {
         this.huesped = huesped;
     }
-    
+
+    public Habitacion getHabitacion() {
+        return habitacion;
+    }
+
+    public void setHabitacion(Habitacion habitacion) {
+        this.habitacion = habitacion;
+    }
     
     
     

@@ -4,10 +4,17 @@
  */
 package vista;
 
+
 import controlador.ControladorHabitacion;
+import controlador.ControladorHuesped;
+import controlador.ControladorReserva;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.EstadoHabitacion;
 import modelo.Habitacion;
+import modelo.Huesped;
+import modelo.Reserva;
 
 /**
  *
@@ -16,17 +23,26 @@ import modelo.Habitacion;
 public class VistaHabitacion extends javax.swing.JFrame {
     
     ControladorHabitacion habitaciones;
+    ControladorHuesped huespedes;
+    ControladorReserva reservas;
 
     /**
      * Creates new form VistaHabitacion
      */
     public VistaHabitacion() {
         initComponents();
+        comboEstado.removeAllItems();
+        for (EstadoHabitacion estado : EstadoHabitacion.values()) {
+            comboEstado.addItem(estado);
+        }
         setLocationRelativeTo(this);
         habitaciones = new ControladorHabitacion();
+        huespedes = new ControladorHuesped();
+        reservas = new ControladorReserva();
         limpiarCampos();
         llenarTabla();
-        
+        llenarTabla2();
+       
     }
 
     /**
@@ -42,7 +58,29 @@ public class VistaHabitacion extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        txtDocumento = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        btnAgregarHuesped = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtIDHuesped = new javax.swing.JTextField();
+        txtFechaEntrada = new javax.swing.JTextField();
+        txtFechaSalida = new javax.swing.JTextField();
+        comboHuesped = new javax.swing.JComboBox<>();
+        comboHabitacion = new javax.swing.JComboBox<>();
+        btnRegistrar = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -51,19 +89,43 @@ public class VistaHabitacion extends javax.swing.JFrame {
         txtNumero = new javax.swing.JTextField();
         txtTipo = new javax.swing.JTextField();
         txtCapacidad = new javax.swing.JTextField();
-        txtEstado = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        comboEstado = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel3.setText("jLabel3");
+        jLabel3.setText("Nombre :");
 
-        jLabel4.setText("jLabel4");
+        jLabel4.setText("Documento :");
+
+        jLabel7.setText("Correo:");
+
+        jLabel8.setText("Telefono :");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        btnAgregarHuesped.setText("Agregar");
+        btnAgregarHuesped.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarHuespedActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -72,31 +134,142 @@ public class VistaHabitacion extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel3))
-                .addContainerGap(562, Short.MAX_VALUE))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addGap(51, 51, 51)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNombre)
+                    .addComponent(txtDocumento)
+                    .addComponent(txtCorreo)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(btnAgregarHuesped)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24)
+                .addComponent(btnAgregarHuesped)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Huespedes", jPanel2);
+
+        jLabel9.setText("IDReserva :");
+
+        jLabel10.setText("Fecha Entrada :");
+
+        jLabel11.setText("Fecha Salida :");
+
+        jLabel12.setText("Huesped :");
+
+        jLabel13.setText("Habitacion :");
+
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 636, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13))
+                        .addGap(56, 56, 56)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtIDHuesped)
+                            .addComponent(txtFechaEntrada)
+                            .addComponent(txtFechaSalida)
+                            .addComponent(comboHuesped, 0, 100, Short.MAX_VALUE)
+                            .addComponent(comboHabitacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(btnRegistrar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 367, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(txtIDHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(txtFechaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(comboHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(comboHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addComponent(btnRegistrar)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reservas", jPanel3);
@@ -169,14 +342,13 @@ public class VistaHabitacion extends javax.swing.JFrame {
                             .addComponent(btnEditar)
                             .addComponent(btnAgregar))))
                 .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnBuscar)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtNumero)
-                        .addComponent(txtTipo)
-                        .addComponent(txtCapacidad)
-                        .addComponent(txtEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                    .addComponent(btnEliminar))
+                    .addComponent(txtNumero)
+                    .addComponent(txtTipo)
+                    .addComponent(txtCapacidad)
+                    .addComponent(btnEliminar)
+                    .addComponent(comboEstado, 0, 100, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -202,7 +374,7 @@ public class VistaHabitacion extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(58, 58, 58)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAgregar)
@@ -211,7 +383,7 @@ public class VistaHabitacion extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnEditar)
                             .addComponent(btnEliminar))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Habitacion", jPanel1);
@@ -220,92 +392,196 @@ public class VistaHabitacion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        int numero = Integer.parseInt(txtNumero.getText());
-        String tipo = txtTipo.getText();
-        int capacidad = Integer.parseInt(txtCapacidad.getText());
-        String Estado = txtEstado.getText();
-        Habitacion habitacion = new Habitacion(numero, tipo, capacidad, Estado);
-        boolean respues = habitaciones.agregarHabitacion(habitacion);
-        if(respues){
-            JOptionPane.showMessageDialog(null, "Se agrego la Habitacion");
-            limpiarCampos();
-            llenarTabla();
-        }else{
-            JOptionPane.showMessageDialog(null, "No se agrego la Habitacion");
+        try {
+            int numero = Integer.parseInt(txtNumero.getText());
+            String tipo = txtTipo.getText();
+            int capacidad = Integer.parseInt(txtCapacidad.getText());
+            EstadoHabitacion estado = (EstadoHabitacion) comboEstado.getSelectedItem();
+            Habitacion habitacion = new Habitacion(numero, tipo, capacidad, estado);
+            if (habitaciones.agregarHabitacion(habitacion)) {
+                JOptionPane.showMessageDialog(this, "Habitación agregada.");
+                limpiarCampos();
+                llenarTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al agregar la habitación.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Datos inválidos.");
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        int numero = Integer.parseInt(txtNumero.getText());
-        Habitacion habitacion = habitaciones.buscarHabitacion(numero);
-        if(habitacion != null){
-            txtEstado.setText(habitacion.getEstado());
-            txtCapacidad.setText(String.valueOf(habitacion.getCapacidad()));
-            txtTipo.setText(habitacion.getTipo());
-        }else{
-            JOptionPane.showMessageDialog(null, "No se encontro la habitacion");
+        try {
+            int numero = Integer.parseInt(txtNumero.getText());
+            Habitacion h = habitaciones.buscarHabitacion(numero);
+            if (h != null) {
+                txtTipo.setText(h.getTipo());
+                txtCapacidad.setText(String.valueOf(h.getCapacidad()));
+                comboEstado.setSelectedItem(h.getEstado());
+            } else {
+                JOptionPane.showMessageDialog(this, "Habitación no encontrada.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Número inválido.");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-       int numero = Integer.parseInt(txtNumero.getText());
-        String tipo = txtTipo.getText();
-        int capacidad = Integer.parseInt(txtCapacidad.getText());
-        String Estado = txtEstado.getText();
-        Habitacion habitacion = new Habitacion(numero, tipo, capacidad, Estado);
-        boolean respues = habitaciones.editarHabitacion(habitacion);
-        if(respues){
-            JOptionPane.showMessageDialog(null, "Se edito la Habitacion");
-            limpiarCampos();
-            llenarTabla();
-        }else{
-            JOptionPane.showMessageDialog(null, "No se edito la Habitacion");
+        try {
+            int numero = Integer.parseInt(txtNumero.getText());
+            String tipo = txtTipo.getText();
+            int capacidad = Integer.parseInt(txtCapacidad.getText());
+            EstadoHabitacion estado = (EstadoHabitacion) comboEstado.getSelectedItem();
+            Habitacion h = new Habitacion(numero, tipo, capacidad, estado);
+            if (habitaciones.editarHabitacion(h)) {
+                JOptionPane.showMessageDialog(this, "Habitación editada.");
+                limpiarCampos();
+                llenarTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al editar.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Datos inválidos.");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int numero = Integer.parseInt(txtNumero.getText());
-        boolean respuesta = habitaciones.elimnarHabitacion(numero);
-        if(respuesta){
-            JOptionPane.showMessageDialog(null, "Se elimino la Haitacion");
-            limpiarCampos();
-            llenarTabla();
-        }else{
-            JOptionPane.showMessageDialog(null, "No se elimno la Habitacion");
+        try {
+            int numero = Integer.parseInt(txtNumero.getText());
+            if (habitaciones.eliminarHabitacion(numero)) {
+                JOptionPane.showMessageDialog(this, "Habitación eliminada.");
+                limpiarCampos();
+                llenarTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "Habitación no encontrada.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Número inválido.");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void limpiarCampos(){
-        txtCapacidad.setText(null);
-        txtEstado.setText(null);
-        txtNumero.setText(null);
-        txtTipo.setText(null);
+    private void btnAgregarHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarHuespedActionPerformed
+        String nombre = txtNombre.getText();
+        String documento = txtDocumento.getText();
+        String correo = txtCorreo.getText();
+        String telefono = txtTelefono.getText();
+        Huesped huesped = new Huesped(nombre, documento, correo, telefono);
+        boolean respuesta = huespedes.agregarHuesped(huesped);
+        if(respuesta){
+            JOptionPane.showMessageDialog(this, "Se agrego el huesped");
+            llenarTabla2();
+        }else{
+            JOptionPane.showMessageDialog(this, "No se agregp el huesped");
+        }
+    }//GEN-LAST:event_btnAgregarHuespedActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        try {
+        // Obtener datos del combo
+            String huespedInfo = (String) comboHuesped.getSelectedItem();
+            String doc = huespedInfo.substring(huespedInfo.indexOf("(") + 1, huespedInfo.indexOf(")"));
+            Huesped huesped = huespedes.buscarHuesped(doc);
+
+            int numHabitacion = Integer.parseInt((String) comboHabitacion.getSelectedItem());
+            Habitacion habitacion = habitaciones.buscarHabitacion(numHabitacion);
+
+        // Validar fechas
+            LocalDate entrada = LocalDate.parse(txtFechaEntrada.getText());
+            LocalDate salida = LocalDate.parse(txtFechaSalida.getText());
+
+        // Crear reserva
+            Reserva nueva = new Reserva(0, entrada, salida, huesped, habitacion);
+            if (reservas.agregarReserva(nueva, habitaciones)) {
+                JOptionPane.showMessageDialog(this, "Reserva registrada correctamente.");
+                llenarTablaReservas();
+                llenarComboHabitacionesDisponibles(); // Actualiza las disponibles
+            } else {
+                JOptionPane.showMessageDialog(this, "Error: reserva inválida. Verifica fechas y disponibilidad.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void limpiarCampos() {
+        txtNumero.setText("");
+        txtTipo.setText("");
+        txtCapacidad.setText("");
+        comboEstado.setSelectedIndex(-1);
     }
     
-    private void llenarTabla(){
-        DefaultTableModel modeloTabla = new DefaultTableModel();
-        modeloTabla.setColumnIdentifiers(new Object[]{ "Numero", "Tipo", "Capacidad", "Estado" });
-        for(Habitacion habitacion : habitaciones.getHabitaciones()){
-            modeloTabla.addRow(new Object[]{
-                habitacion.getNumero(),
-                habitacion.getTipo(),
-                habitacion.getCapacidad(),
-                habitacion.getEstado()
+    private void llenarTabla() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.setColumnIdentifiers(new String[]{"Número", "Tipo", "Capacidad", "Estado"});
+        for (Habitacion h : habitaciones.getHabitaciones()) {
+            modelo.addRow(new Object[]{
+                h.getNumero(),
+                h.getTipo(),
+                h.getCapacidad(),
+                h.getEstado()
             });
         }
-        jTable1.setModel(modeloTabla);
+        jTable1.setModel(modelo);
     }
+    
+    private void llenarTabla2() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.setColumnIdentifiers(new String[]{"Nombre", "Documento", "Correo", "Telefono"});
+        for (Huesped huesped : huespedes.getHuespedes()) {
+            modelo.addRow(new Object[]{
+                huesped.getNombre(),
+                huesped.getDocumento(),
+                huesped.getCorreo(),
+                huesped.getTelefono()
+            });
+        }
+        jTable2.setModel(modelo);
+    }
+    
+    
+     private void llenarComboHuesped() {
+        comboHuesped.removeAllItems();
+        for (Huesped h : huespedes.getHuespedes()) {
+            comboHuesped.addItem(h.getNombre() + " (" + h.getDocumento() + ")");
+        }
+    }
+
+    private void llenarComboHabitacionesDisponibles() {
+        comboHabitacion.removeAllItems();
+        for (Habitacion h : habitaciones.getHabitaciones()) {
+            if (h.getEstado() == EstadoHabitacion.DISPONIBLE) {
+                comboHabitacion.addItem(String.valueOf(h.getNumero()));
+            }
+        }
+    }
+    
+    private void llenarTablaReservas() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.setColumnIdentifiers(new String[]{"ID", "Huésped", "Habitación", "Entrada", "Salida"});
+        for (Reserva r : reservas.getReservas()) {
+            modelo.addRow(new Object[]{
+                r.getIdReserva(),
+                r.getHuesped().getNombre() + " (" + r.getHuesped().getDocumento() + ")",
+                r.getHabitacion().getNumero(),
+                r.getFechaEntrada(),
+                r.getFechaSalida()
+            });
+        }
+        jTable3.setModel(modelo);
+    }
+
+    
     
             
     /**
@@ -345,24 +621,46 @@ public class VistaHabitacion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAgregarHuesped;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<EstadoHabitacion> comboEstado;
+    private javax.swing.JComboBox<String> comboHabitacion;
+    private javax.swing.JComboBox<String> comboHuesped;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JTextField txtCapacidad;
-    private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtDocumento;
+    private javax.swing.JTextField txtFechaEntrada;
+    private javax.swing.JTextField txtFechaSalida;
+    private javax.swing.JTextField txtIDHuesped;
+    private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtTipo;
     // End of variables declaration//GEN-END:variables
 }

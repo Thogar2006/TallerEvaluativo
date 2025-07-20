@@ -12,9 +12,9 @@ public class Habitacion {
     private int numero;
     private String tipo;
     private int capacidad;
-    private String estado;
+    private EstadoHabitacion estado;  // <-- Enum, no String
 
-    public Habitacion(int numero, String tipo, int capacidad, String estado) {
+    public Habitacion(int numero, String tipo, int capacidad, EstadoHabitacion estado) {
         this.numero = numero;
         this.tipo = tipo;
         this.capacidad = capacidad;
@@ -25,33 +25,31 @@ public class Habitacion {
         return numero;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
     public String getTipo() {
         return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public int getCapacidad() {
         return capacidad;
     }
 
+    public EstadoHabitacion getEstado() {
+        return estado;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
+    public void setEstado(EstadoHabitacion estado) {
         this.estado = estado;
     }
-    
-    
 }
